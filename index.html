@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+  <base target="_top">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f2f2f2;
+    }
+    
+    h1 {
+      text-align: center;
+      margin-top: 50px;
+    }
+    
+    form {
+      max-width: 300px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    
+    input[type="text"],
+    input[type="password"],
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      box-sizing: border-box;
+    }
+    
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h1>Product Management System</h1>
+  <form id="signupForm">
+    <input type="text" name="id" placeholder="ID"><br>
+    <input type="password" name="password" placeholder="Password"><br>
+    <button type="button" onclick="signUp()">Sign Up</button>
+  </form>
+  <br>
+  <form id="loginForm">
+    <input type="text" name="id" placeholder="ID"><br>
+    <input type="password" name="password" placeholder="Password"><br>
+    <button type="button" onclick="login()">Login</button>
+  </form>
+  
+  <script>
+    function signUp() {
+      var form = document.getElementById("signupForm");
+    google.script.run.withSuccessHandler(function() {
+      alert("Sign up successful!");
+    }).signUp(form.id.value, form.password.value);
+    form.reset();
+    }
+    
+    function login() {
+    var form = document.getElementById("loginForm");
+    google.script.run.withSuccessHandler(function(userType) {
+      console.log("User type: " + userType);
+      if (userType === "customer" || userType === "admin") {
+        redirectToPage(userType);
+      } else {
+        alert("Invalid credentials");
+      }
+    }).login(form.id.value, form.password.value);
+    form.reset();
+  }
+  
+  function redirectToPage(userType) {
+    if (userType === "customer") {
+      window.open("customer.html", "_blank");
+    } else if (userType === "admin") {
+      window.open("admin.html", "_blank");
+    }
+  }
+  
+
+    function navigate(navigationBar) {
+      // Navigate user based on userType and display navigation bar
+    }
+  </script>
+</body>
+</html>
